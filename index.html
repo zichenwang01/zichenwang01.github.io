@@ -7,50 +7,151 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+	<link rel="icon" href="images/ginko_square.jpg">
+  <!-- <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>"> -->
 </head>
 
 <body>
   <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
     <tr style="padding:0px">
       <td style="padding:0px">
+
+        <!-- SELF INTRO -->
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr style="padding:0px">
             <td style="padding:2.5%;width:63%;vertical-align:middle">
               <p style="text-align:center">
                 <name>Zichen Wang</name>
               </p>
-              <p>I am a senior staff research scientist at <a href="https://ai.google/research">Google Research</a> in <a href="https://en.wikipedia.org/wiki/One_Market_Plaza">San Francisco</a>, where I work on computer vision and machine learning.
-              </p>
-              <p>
-                At Google I've worked on <a href="https://www.google.com/glass/start/">Glass</a>,  <a href="https://ai.googleblog.com/2014/04/lens-blur-in-new-google-camera-app.html">Lens Blur</a>, <a href="https://ai.googleblog.com/2014/10/hdr-low-light-and-high-dynamic-range.html">HDR+</a>, <a href="https://blog.google/products/google-ar-vr/introducing-next-generation-jump/">Jump</a>, <a href="https://ai.googleblog.com/2017/10/portrait-mode-on-pixel-2-and-pixel-2-xl.html">Portrait Mode</a>, <a href="https://ai.googleblog.com/2020/12/portrait-light-enhancing-portrait.html">Portrait Light</a>, and <a href="https://www.matthewtancik.com/nerf">NeRF</a>. I did my PhD at <a href="http://www.eecs.berkeley.edu/">UC Berkeley</a>, where I was advised by <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a> and funded by the <a href="http://www.nsfgrfp.org/">NSF GRFP</a>. I've received the <a href="https://www2.eecs.berkeley.edu/Students/Awards/15/">C.V. Ramamoorthy Distinguished Research Award</a> and the <a href="https://www.thecvf.com/?page_id=413#YRA">PAMI Young Researcher Award</a>.
+              <p>I am Zichen, an undergraduate at Cornell studying Computer Science and Mathematics. My research interests lies in Computer Graphics and specifically differentiable rendering and inverse rendering. I am very fortunate to be advised by <a href="https://www.cs.cornell.edu/~srm/">Steve Marschner</a> during my undergraduate times. </p>
               </p>
               <p style="text-align:center">
-                <a href="mailto:jonbarron@gmail.com">Email</a> &nbsp/&nbsp
-                <a href="data/JonBarron-CV.pdf">CV</a> &nbsp/&nbsp
-                <a href="data/JonBarron-bio.txt">Bio</a> &nbsp/&nbsp
-                <a href="https://scholar.google.com/citations?hl=en&user=jktWnL8AAAAJ">Google Scholar</a> &nbsp/&nbsp
-                <a href="https://twitter.com/jon_barron">Twitter</a> &nbsp/&nbsp
-                <a href="https://github.com/jonbarron/">Github</a>
+                <a href="mailto:zw336@cornell.edu">Email</a> &nbsp/&nbsp
+                <a href="data/Curriculum Vitae, Zichen Wang.pdf">CV</a> &nbsp/&nbsp
+                <a href="https://scholar.google.com/citations?hl=en&user=6W_ACEEAAAAJ">Google Scholar</a> &nbsp/&nbsp
+                <a href="https://github.com/Ginko2501/">Github</a>
               </p>
             </td>
             <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/JonBarron.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/JonBarron_circle.jpg" class="hoverZoomLink"></a>
+              <a href="images/selfie.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/selfie_square.jpg" class="hoverZoomLink"></a>
             </td>
           </tr>
         </tbody></table>
+
+        <!-- RESEARCH -->
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             <tr>
             <td style="padding:20px;width:100%;vertical-align:middle">
               <heading>Research</heading>
               <p>
-                I'm interested in computer vision, machine learning, optimization, and image processing. Much of my research is about inferring the physical world (shape, motion, color, light, etc) from images. Representative papers are <span class="highlight">highlighted</span>.
+                My research experience first started in Mathematics and Theoretical Computer Science (TCS). Envisioning to bring rigorious mathematics into real-world applications, I worked on the k-MST approximation algorithm at my first somphomore semester and symplectic geometry at my pre-junior summer. As I continue to study more advanced Geometry courses, I became interested in the applications of Geometry in Computer Science. This sparked my interest in Computer Graphics and Rendering Algorithms.
               </p>
             </td>
           </tr>
         </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>			
 					
+          <!-- k-MST -->
+          <tr onmouseout="kmst_stop()" onmouseover="kmst_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src='images/kMST.png' width="160">
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://epubs.siam.org/doi/10.1137/1.9781611977585.ch6">
+                <papertitle>Revisiting Garg's 2-Approximation Algorithm for the k-MST Problem in Graphs</papertitle>
+              </a>
+              <br>
+              Emmett Breen, 
+              <a href="https://www.cs.cornell.edu/~rmirka/">Renee Mirka</a>,
+              <strong>Zichen Wang</strong>, 
+              <a href="http://www.davidpwilliamson.net/work/">David P. Williamson</a>
+              <br>
+              * Authors listed in alphabetical order
+              <br>
+              <em>Symposium on Simplicity in Algorithms (SOSA)</em>, 2023
+              <p></p>
+              <p>
+                Project description coming soon
+              </p>
+            </td>
+          </tr>		
+
+          <!-- STAIRCASE -->
+          <tr onmouseout="staircase()" onmouseover="staircase()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src='images/staircase.png' width="160">
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2210.15069">
+                <papertitle>Four-periodic infinite staircases for four-dimensional polydisks</papertitle>
+              </a>
+              <br>
+              Caden Farley, 
+              <a href="https://pi.math.cornell.edu/~tsh/">Tara Holm</a>,
+              <a href="https://sites.google.com/cornell.edu/nicki-magill/">Nicki Magill</a>,
+              Jemma Schroder,
+              <a href="https://e.math.cornell.edu/people/Morgan_Weiler/">Morgan Weiler</a>,
+              <strong>Zichen Wang</strong>, 
+              Elizaveta Zabelina
+              <br>
+              * Authors listed in alphabetical order
+              <br>
+              <em>Joint Math Meeting</em>, 2023
+              <p></p>
+              <p>
+                Project description coming soon
+              </p>
+            </td>
+          </tr>		
+
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr><td style="padding:20px;width:100%;vertical-align:middle">
+            <heading>Projects</heading>
+            <p>
+              Here are some of my noteworthy projects.
+            </p>
+          </td></tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>	
+
+          <!-- SIM-SDF -->
+          <tr onmouseout="simsdf()" onmouseover="simsdf()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src='images/max_sdf.png' width="160">
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://github.com/Ginko2501/SimSDF">
+                <papertitle>SimSDF: Physically-Based Simulation with Signed Distance Field</papertitle>
+              </a>
+              <br> <strong>Zichen Wang</strong>, Xilai Dai, Barry Lyu 
+              <br> CS5643 Final Project
+              <p></p>
+              <p>
+                Project description coming soon
+              </p>
+            </td>
+          </tr>		
+
+          <!-- INVERSE RENDERING -->
+          <tr onmouseout="ir()" onmouseover="ir()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src='images/image2scene.png' width="160">
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="./data/Inverse_Rendering.pdf">
+                <papertitle>Notes On Inverse Rendering</papertitle>
+              </a>
+              <br> <strong>Zichen Wang</strong>, Gemmechu Hassena
+              <p></p>
+              <p>
+                Project description coming soon
+              </p>
+            </td>
+          </tr>		
+
+
+        <!-- FOOTER -->
         </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr>
@@ -62,6 +163,8 @@
             </td>
           </tr>
         </tbody></table>
+
+
       </td>
     </tr>
   </table>
