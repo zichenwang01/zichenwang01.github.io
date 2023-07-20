@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Differentiable Rendering, Path Space">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boundary Path Sampling</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📷</text></svg>">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <!-- TITLE -->
+          <h1 class="title is-1 publication-title">Boundary Path Sampling</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zichenwang01.github.io/">Zichen Wang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.cs.cornell.edu/~xideng/">Xi Deng</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.cs.cornell.edu/~srm/">Steve Marschner</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Cornell University</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><em>Ongoing Work</em></span>
+          </div>
+
+          <!-- <div class="column has-text-centered"> -->
+            <!-- <div class="publication-links"> -->
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+               </span> -->
+            <!-- </div> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <h2 class="title is-3">Sampling of Boundary Path of Length 1</h2>
+        <div class="image-container" style="display: flex; justify-content: space-between;">
+            <figure style="text-align: center;">
+                <img src="./images/bp, one_sphere.png" alt="Image 1" style="max-width: 95%; height: auto;">
+                <figcaption>2D One Sphere Scene</figcaption>
+            </figure>
+            <figure style="text-align: center;">
+                <img src="./images/bp, two_spheres.png" alt="Image 2" style="max-width: 95%; height: auto;">
+                <figcaption>2D Two Spheres Scene</figcaption>
+            </figure>
+        </div>
+        <br>
+
+        <div class="image-container" style="display: flex; justify-content: space-between;">
+            <figure style="text-align: center;">
+                <img src="./images/direct, bunny.png" alt="Image 1" style="max-width: 95%; height: auto;">
+                <figcaption>Reference</figcaption>
+            </figure>
+            <figure style="text-align: center;">
+                <img src="./images/bp, bunny.png" alt="Image 2" style="max-width: 95%; height: auto;">
+                <figcaption>3D Bunny</figcaption>
+            </figure>
+        </div>
+        <div class="content">
+            <p>
+                The image on the right shows boundary paths of length 1 for the bunny. The intersection points of the boundary paths are colored and then projected back to the image plane. Red denotes that the camera ray is tangential to the bunny; green denotes boundary paths due to self occulusion; and blue denotes that the light ray is tangential to the bunny. 
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <h2 class="title is-3">Preliminary Results</h2>
+
+        <h3 class="title is-4">Bunny Moving Up</h3>
+        <div class="image-container" style="display: flex; justify-content: space-between;">
+            <figure style="text-align: center;">
+                <img src="./images/autodiff, bunny move up.png" alt="Image 1" style="max-width: 95%; height: auto;">
+                <figcaption>Auto Diff (Scaled)</figcaption>
+            </figure>
+            <figure style="text-align: center;">
+                <img src="./images/ours, bunny move up.png" alt="Image 2" style="max-width: 95%; height: auto;">
+                <figcaption>Ours</figcaption>
+            </figure>
+            <figure style="text-align: center;">
+                <img src="./images/finitediff, bunny move up.png" alt="Image 2" style="max-width: 95%; height: auto;">
+                <figcaption>Finite Diff</figcaption>
+            </figure>
+        </div>
+
+        <h3 class="title is-4">Bunny Moving Right</h3>
+        <div class="image-container" style="display: flex; justify-content: space-between;">
+            <figure style="text-align: center;">
+                <img src="./images/autodiff, bunny move right.png" alt="Image 1" style="max-width: 95%; height: auto;">
+                <figcaption>Auto Diff (Scaled)</figcaption>
+            </figure>
+            <figure style="text-align: center;">
+                <img src="./images/ours, bunny move right.png" alt="Image 2" style="max-width: 95%; height: auto;">
+                <figcaption>Ours</figcaption>
+            </figure>
+            <figure style="text-align: center;">
+                <img src="./images/finitediff, bunny move right.png" alt="Image 2" style="max-width: 95%; height: auto;">
+                <figcaption>Finite Diff</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- BIBTEX -->
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p style="text-align:center;font-size:small;">
+            Design and source code from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
