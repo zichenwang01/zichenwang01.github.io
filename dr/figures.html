@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Forward Gradients</title>
+</head>
+
+<head>
+    <style>
+        figure {
+            text-align: center;
+        }
+
+        figcaption {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Forward Gradients</h1>
+    <p>Zichen Wang</p>
+    <p>October 30, 2023</p>
+
+    <p> This is a report on the forward gradients, that is, the derivative of the render image with respect to a single parameter. The parameter that we have tested mainly consist of geometric transformations (translation and scaling). We tested on different shapes (simple buuny, medium dragon, and complex buddha), as well as different lighting conditions (points light and area light). For the comparison, we mainly compare with finite difference and Differentiable Signed Distance Rendering [Vicini 2022]. We demonstrate some of our most noteworthy results below.</p>
+
+    <section>
+        <h2>Section 2: Secondary Rays</h2>
+        <p>This section experiments secondary ray gradients. The scene consists of a floating object, a plane beneith the object, an area light above the object, and a camera looking at the object shadow cast on the bottom plane. For reference we use finite difference. For our method we use boundary path projection to evaluate the boundary integral. Further, narrowing the sdf threshold reduces the bias, and with small enough threshold, only Monte Carlo noise is obverved. We lack a previous method to compare with and would like to add that soon. </p>
+
+        <subsection>
+            <h3>Subsection 2.1: Effect of SDF threshold on Gradient Bias</h3>
+            <p>In our methods, the SDF threshold controls to which extent we relax the boundary integral. This experiment shows the effect of this SDF threshold. In this experiment, a single parameter moves the object up; the bottom plane stays stationary</p>
+            <table>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_up/finitediff.png' width="256" alt="finitediff">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_up/ours, sdf=1e-2.png' height="256" alt="ours">
+                        <figcaption>ours_sdf=1e-2</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_up/ours, sdf=1e-3.png' height="256" alt="ours">
+                        <figcaption>ours_sdf=1e-3</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_up/ours, sdf=1e-4.png' height="265" alt="ours">
+                        <figcaption>ours_sdf=1e-4</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_up/render.png' width="256" alt="render">
+                        <figcaption>render</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_up/ours_diff, sdf=1e-2.png' height="256" alt="ours_diff">
+                        <figcaption>reference - ours_sdf=1e-2</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_up/ours_diff, sdf=1e-3.png' height="256" alt="ours_diff">
+                        <figcaption>reference - ours_sdf=1e-3</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_up/ours_diff, sdf=1e-4.png' height="265" alt="ours_diff">
+                        <figcaption>reference - ours_sdf=1e-4</figcaption>
+                    </td>
+                </tr>
+            </table>
+        </subsection>
+
+        <subsection>
+            <h3>Subsection 2.2: Effect of SDF threshold on Gradient Variance</h3>
+            <p>In this experiment, a single parameter moves the object right. We changed to a larger area light to emphasize the bias-variance trade off</p>
+            <table>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_right/finitediff.png' width="256" alt="finitediff">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_right/ours, sdf=1e-3.png' height="256" alt="ours">
+                        <figcaption>ours_sdf=1e-3</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_right/ours, sdf=5e-4.png' height="256" alt="ours">
+                        <figcaption>ours_sdf=5e-4</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/2. sdf/dragon_right/ours, sdf=1e-4.png' height="265" alt="ours">
+                        <figcaption>ours_sdf=1e-4</figcaption>
+                    </td>
+                </tr>
+            </table>
+        </subsection>
+
+        <subsection>
+            <h3>Subsection 2.3: Effect of spp</h3>
+            <p>In this experiment, a single parameter moves the object up and the bottom plane stays stationary.p</p>
+            <table>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/1. spp/dragon/finitediff.png' height="256" alt="reference">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/1. spp/dragon/ours, spp=100.png' height="256" alt="ours">
+                        <figcaption>ours_spp=1e2</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/1. spp/dragon/ours, spp=1024.png' height="256" alt="ours">
+                        <figcaption>ours_spp=1e3</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/1. spp/dragon/ours, spp=10240.png' height="265" alt="ours">
+                        <figcaption>ours_spp=1e4</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/1. spp/dragon/render.png' height="256" alt="render">
+                        <figcaption>render</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/1. spp/dragon/ours_diff, spp=100.png' height="256" alt="ours_diff">
+                        <figcaption>reference - ours_spp=1e2</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/1. spp/dragon/ours_diff, spp=1024.png' height="256" alt="ours_diff">
+                        <figcaption>reference - ours_spp=1e3</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/1. spp/dragon/ours_diff, spp=10240.png' height="265" alt="ours_diff">
+                        <figcaption>reference - ours_spp=1e4</figcaption>
+                    </td>
+                </tr>
+            </table>
+        </subsection>
+
+        <subsection>
+            <h3>Subsection 2.4: Effect of area light size</h3>
+            <p> We test our method under different sizes of area lights</p>
+            <table>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/render, scale=1e-1.png' height="256" alt="render">
+                        <figcaption>render</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/finitediff, scale=1e-1.png' height="256" alt="reference">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/ours, scale=1e-1.png' height="256" alt="ours">
+                        <figcaption>ours</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/render, scale=1e-2.png' height="256" alt="render">
+                        <figcaption>render</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/finitediff, scale=1e-2.png' height="256" alt="reference">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/ours, scale=1e-2.png' height="256" alt="ours">
+                        <figcaption>ours</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/render, scale=1e-3.png' height="256" alt="render">
+                        <figcaption>render</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/finitediff, scale=1e-3.png' height="256" alt="reference">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/3. area_light_size/dragon/ours, scale=1e-3.png' height="256" alt="ours">
+                        <figcaption>ours</figcaption>
+                    </td>
+            </table>
+        </subsection>
+
+        <subsection>
+            <h3>Subsection 2.4: Gradient Decomposition</h3>
+            <p>In this experiment, a single parameter moves right the object and moves up the bottom plane. This experiment shows that we can compute the gradients due to object motion and plane motion seperately and take sum. This is advantagous to reparametrization methods as they require nested reparametrization for secondary rays.</p>
+            <table>
+                <tr>
+                    <td>
+                        <img src='8. eval bp/4. decomposition/dragon/finitediff.png' height="256">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='8. eval bp/4. decomposition/dragon/sum.png' height="256">
+                        <figcaption>plane move up + object move right</figcaption>
+                    </td>
+                    <td>=</td>
+                    <td>
+                        <img src='8. eval bp/4. decomposition/dragon/primary.png' height="256">
+                        <figcaption>plane move up</figcaption>
+                    </td>
+                    <td>+</td>
+                    <td>
+                        <img src='8. eval bp/4. decomposition/dragon/secondary.png' height="256">
+                        <figcaption>object move right</figcaption>
+                    </td>
+            </table>
+        </subsection>
+
+        <subsection>
+            <h3>Subsection 2.5: Comparison with Previous Methods</h3>
+            <p>A single parameter moves right the object and the bottom plane.</p>
+            <table>
+                <tr>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-1/render.png' height="256" alt="render">
+                        <figcaption>render</figcaption>
+                    </td>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-1/finitediff.png' height="256" alt="reference">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-1/vicini.png' height="256" alt="vicini">
+                        <figcaption>[Vicini 2022]</figcaption>
+                    </td>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-1/ours.png' height="256" alt="ours">
+                        <figcaption>ours</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-2/render.png' height="256" alt="render">
+                        <figcaption>render</figcaption>
+                    </td>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-2/finitediff.png' height="256" alt="reference">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-2/vicini.png' height="256" alt="vicini">
+                        <figcaption>[Vicini 2022]</figcaption>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-2/ours.png' height="256" alt="ours">
+                        <figcaption>ours</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-3/render.png' height="256" alt="render">
+                        <figcaption>render</figcaption>
+                    </td>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-3/finitediff.png' height="256" alt="reference">
+                        <figcaption>reference</figcaption>
+                    </td>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-3/vicini.png' height="256" alt="vicini">
+                        <figcaption>[Vicini 2022]</figcaption>
+                    </td>
+                    <td>
+                        <img src='9. comparison/2. secondary/dragon, scale=1e-3/ours.png' height="256" alt="ours">
+                        <figcaption>ours</figcaption>
+                    </td>
+                </tr>
+            </table>
+        </subsection>
+    </section>
+</body>
+
+</html>
