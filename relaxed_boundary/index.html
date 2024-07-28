@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="A Simple Approach to Differentiable Rendering of SDFs">
+  <meta name="keywords" content="differentiable rendering, rendering, 3D reconstruction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relaxed Boundary Integrals</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- NAVIGATION BAR -->
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav> -->
+
+<!-- AUTHORS AND LINKS -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <!-- TITLE -->
+          <h1 class="title is-1 publication-title">A Simple Approach to Differentiable Rendering of SDFs</h1>
+
+          <span class="publication-venue">SIGGRAPH Asia 2024</span>
+
+          <!-- AUTHORS -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zichenwang01.github.io/">Zichen Wang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.cs.cornell.edu/~xideng/">Xi Deng</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://ziyi-zhang.github.io/">Ziyi Zhang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://rgl.epfl.ch/people/wjakob">Wenzel Jakob</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.cornell.edu/~srm/">Steve Marschner</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Cornell University</span>
+            <span class="author-block"><sup>2</sup>EPFL</span>
+          </div>
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block">
+                Anonymous Authos  
+            </span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Paper Link. To be released -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <!-- ArXiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2405.08733"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. To be released -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. To be released -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. To be released -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEASER -->
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body">
+      <img id="teaser" src="./static/images/teaser.png" width="100%" alt="Teaser image">
+      <p>
+        The jump discontinuities at the visibility boundary <i>B</i> make physically based rendering non-differentiable. To explicitly sample and address such discontinuities, we propose to relax the visibility boundary to a thin band of relaxed boundary <i>A</i>. This corresponds to relaxing the surfaces to thin volumes for sampling discontinuities but retaining surface representations for forward rendering. Consequently, we are able to compute accurate gradients of the rendered images with respect to the scene parameters and, in turn, achieve high-quality inverse rendering results, with less complexity than previous methods.
+      </p>
+      <!-- <h2 class="subtitle has-text-justify">
+        The jump discontinuities at the visibility boundary <i>B</i> make physically based rendering non-differentiable. To explicitly sample and address such discontinuities, we propose to relax the visibility boundary to a thin band of relaxed boundary <i>A</i>. This corresponds to relaxing the surfaces to thin volumes for sampling discontinuities but retaining surface representations for forward rendering. Consequently, we are able to compute accurate gradients of the rendered images with respect to the scene parameters and, in turn, achieve high-quality inverse rendering results, with less complexity than previous methods.
+      </h2> -->
+    </div>
+  </div>
+</section>
+
+<!-- ABSTRACT -->
+<section class="hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <br>
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We present a simple algorithm for differentiable rendering of surfaces represented by Signed Distance Fields (SDF), which makes it easy to integrate rendering into gradient-based optimization pipelines. To tackle visibility-related derivatives that make rendering non-differentiable, existing physically based differentiable rendering methods often rely on elaborate guiding data structures or reparameterization with a global impact on variance. In this article, we investigate an alternative that embraces nonzero bias in exchange for low variance and architectural simplicity. Our method expands the lower-dimensional boundary integral into a thin band that is easy to sample when the underlying surface is represented by an SDF. We demonstrate the performance and robustness of our formulation in end-to-end inverse rendering tasks, where it obtains results that are competitive with or superior to existing work.
+          </p>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<!-- <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Video</h2>
+          <div class="content has-text-justified">
+            <p>
+              Video coming soon!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section> -->
+
+<!-- Reconstruction -->
+<section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Reconstruction Comparison</h2>
+          <img id="compare" src="./static/images/compare.png" width="100%" alt="compare">
+          <div class="content has-text-justified">
+            <p>
+                We compare the final inverse rendering of SDF Convolution (8 auxiliary spp), SDF Reparameterization, and our method using the same optimization setup: in total we run 5000 iterations optimizing 50 views; in each iteration, we optimize a batch of 5 views, rendered with 512 × 512 resolution and 64 spp. In all test cases, our method results in comparable or more accurate reconstructions.
+            </p>
+          </div>
+          <img id="table" src="./static/images/table.png" width="120%" alt="table">
+          <div class="content has-text-justified">
+            <p>
+                We quantitatively measure the performance of different methods on synthetic Chair, Lego, Hotdog, Ficus, and Drum. For 2D evaluations, we test novel view rendering and relighting on a high-contrast and a low-contrast environment map. For 3D evaluations, we test the Chamfer L1 distance using random sample points on the ground truth mesh. We use the same optimization setup as in above and additionally run SDF Reparameterization using their released hqq setup. Since previous methods require tricubic interpolation of the SDF grid, we further test our method on both trilinear and tricubic interpolation for better reference.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Inverse -->
+<section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Inverse Rendering</h2>
+          <img id="compare" src="./static/images/inverse.png" width="100%" alt="compare">
+          <div class="content has-text-justified">
+            <p>
+                The physically-based nature of our differentiable renderer enables joint optimization of geometry and material. Here we visualize the geometry, normal, and albedo of our final inverse rendering. Note how we can largely disentangle shading effects from the albedo (in comparison with the top left rendering).
+            </p>
+          </div>
+          <img id="table" src="./static/images/relight.png" width="120%" alt="table">
+          <div class="content has-text-justified">
+            <p>
+                Physically based differentiable renderers also make relighting easy. We demonstrate the rendering of the reconstructed Chair under various lighting conditions. In all cases, the shadows and highlights of our rendering are consistent with ground truth.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- DEMO -->
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-vbunny">
+          <video poster="" id="vbunny" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/vbunny.mp4"
+                    type="video/mp4">
+          </video>
+          <p> Geometry optimization of Voronoi Bunny</p>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- BIBTEX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{zichen2024relaxedboundary,
+  author    = {Wang, Zichen and Deng, Xi and Zhang, Ziyi and Jakob, Wenzel and Marschner, Steve},
+  title     = {A Simple Approach to Differentiable Rendering of SDFs},
+  journal   = {},
+  year      = {2024},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Design and source code from <a
+            href="https://github.com/nerfies/nerfies.github.io">nerfies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
